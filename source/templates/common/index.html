@@ -1,29 +1,13 @@
 {% extends "common/base.html" %}
 {% load staticfiles %}
-{% block title %}首页标题{% endblock %}
-{% block keywords%}首页关键词{% endblock %}
-{% block description%}首页描述{% endblock %}
+{% block title %}麦子学院{% endblock %}
+{% block keywords%}IT在线教育,IT职业教育,IT培训,IT职业课程,IT职业学习,麦子学院{% endblock %}
+{% block description%}麦子学院专注于IT在线职业教育,这里有超过5000+的实名学员,有硅谷IT名师参与录制的Android、ios、cocos2d-x开发等IT职业课程,导师在线辅导和保薪就业,更有站内IT精英实名社区,学IT就上麦子学院。{% endblock %}
 {% block header %}
-<header class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="64">
+{% include 'common/header.html' %}
 {% endblock %}
 {% block container %}
-<div class="v5-banner-big">
-    <div class="container">
-      <div class="carousel-container">
-        <div id="carousel">
-          <div class="carousel-feature">
-            <a href="#"><img class="carousel-image" alt="Image Caption" src="{% static 'test/1.jpg' %}"></a>
-          </div>
-          <div class="carousel-feature">
-            <a href="#"><img class="carousel-image" alt="Image Caption" src="{% static 'test/1.jpg' %}"></a>
-          </div>
-          <div class="carousel-feature">
-            <a href="#"><img class="carousel-image" alt="Image Caption" src="{% static 'test/1.jpg' %}"></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+{% include 'common/ad.html' %}
 <div class="v5-index-main">
     <div class="v5-titline"></div>
     <div class="container">
@@ -414,128 +398,9 @@
         </div>
       </div>
     </div>
-    <div class="v5-titline">
-      <div class="container">
-        <h1>名师风采</h1>
-      </div>
-    </div>
-    <div class="container">
-      <div class="tc-list">
-        <a id="prev" class="prev" href="#"></a>
-        <div class="tc-list-w">
-          <ul id="foo" class="cf">
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#00A388;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#FF6038;"><img src="{% static 'test/17.jpg' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#00A388;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#78BD8B;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-          </ul>
-        </div>
-        <a id="next" class="next" href="#"></a>
-      </div>
-    </div>
-    <div class="v5-titline">
-      <div class="container">
-        <h1>推荐阅读</h1>
-      </div>
-    </div>
-    <div class="container">
-      <div class="v5-read cf">
-        <div class="v5-read-item">
-          <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>麦子百科</h1>
-            <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
-            </ul>
-          </div>
-          <p><img src="{% static 'test/3.jpg' %}"></p>
-        </div>
-        <div class="v5-read-item v5-read-item-mid">
-          <p><img src="{% static 'test/4.jpg' %}"></p>
-          <div class="v5-read-list" style="background-color:#FF6138;">
-            <h1>麦子百科</h1>
-            <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="v5-read-item">
-          <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>麦子百科</h1>
-            <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
-            </ul>
-          </div>
-          <p><img src="{% static 'test/5.jpg' %}"></p>
-        </div>
-      </div>
-    </div>
-    <div class="v5-titline">
-      <div class="container">
-        <h1>战略合作</h1>
-      </div>
-    </div>
-    <div class="container">
-      <div class="v5-strategic">
-        <ul class="cf">
-          <li>
-            <a href=""><img src="{% static 'test/6.png' %}"></a>
-          </li>
-          <li>
-            <a href=""><img src="{% static 'test/7.png' %}"></a>
-          </li>
-          <li>
-            <a href=""><img src="{% static 'test/9.png' %}"></a>
-          </li>
-          <li>
-            <a href=""><img src="{% static 'test/10.png' %}"></a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    {% include 'common/teacher.html' %}
+    {% include 'common/read.html' %}
+    {% include 'common/parnership.html' %}
   </div>
 {% endblock %}
 {% block footer%}

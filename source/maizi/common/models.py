@@ -14,6 +14,7 @@ from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, \
     AbstractBaseUser, PermissionsMixin
 
+
 class Ad(models.Model):
 
     '''
@@ -35,6 +36,7 @@ class Ad(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class MyMessage(models.Model):
 
@@ -66,6 +68,7 @@ class MyMessage(models.Model):
     def __unicode__(self):
         return str(self.id)
 
+
 class Links(models.Model):
 
     '''
@@ -87,6 +90,7 @@ class Links(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Keywords(models.Model):
 
     '''
@@ -103,6 +107,7 @@ class Keywords(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class RecommendKeywords(models.Model):
 
     '''
@@ -110,6 +115,7 @@ class RecommendKeywords(models.Model):
     '''
 
     name = models.CharField(u'推荐搜索关键词', max_length = 50)
+    callback_url = models.URLField(u'回调url', null=True, blank=True)
 
     class Meta:
         verbose_name = u'推荐搜索关键词'
@@ -140,6 +146,7 @@ class EmailVerifyRecord(models.Model):
     def __unicode__(self):
         return self.code
 
+
 class RecommendedReading(models.Model):
 
     '''
@@ -168,6 +175,7 @@ class RecommendedReading(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class CareerCourse(models.Model):
 
@@ -199,6 +207,7 @@ class CareerCourse(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Stage(models.Model):
 
     '''
@@ -220,6 +229,7 @@ class Stage(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Course(models.Model):
 
@@ -254,6 +264,7 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Lesson(models.Model):
 
     '''
@@ -281,6 +292,7 @@ class Lesson(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class LessonResource(models.Model):
 
     '''
@@ -299,6 +311,7 @@ class LessonResource(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class CourseResource(models.Model):
 
     '''
@@ -309,6 +322,7 @@ class CourseResource(models.Model):
     download_url = models.FileField(u'下载地址', upload_to='course/%Y/%m')
     download_count = models.IntegerField(u'下载次数', default=0)
     course = models.ForeignKey(Course, verbose_name=u'课程')
+
     class Meta:
         verbose_name = u'课程资源'
         verbose_name_plural = verbose_name
@@ -316,6 +330,7 @@ class CourseResource(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class UserProfileManager(BaseUserManager):
 
@@ -347,7 +362,8 @@ class UserProfileManager(BaseUserManager):
         return self._create_user(email, email, password, True, True,
                                  **extra_fields)
 
-class UserProfile(AbstractBaseUser,PermissionsMixin):
+
+class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     '''
     继承AbstractUser，扩展用户信息
@@ -418,6 +434,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
 
     def __unicode__(self):
         return self.username
+
 
 class MyCourse(models.Model):
 

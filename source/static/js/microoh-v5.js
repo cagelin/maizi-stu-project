@@ -64,9 +64,22 @@ $(function(){
         $('#hotkeyword').slideDown();
       }
     },
+    // ajax 搜索
     keyup:function() {
       $('#hotkeyword').slideUp();
-      $('#keyword-group').slideDown();
+      
+      var word = $('#search').val();
+       $.get('/search',{'word':word},function (data) {
+         var str ='';
+         $.each(data,function (k, v) {
+               // alert(v.fields.name)
+               str +='<a href="" >'+ v.fields.name +'</a>';  
+            });
+         if(str!=''){
+           $('#keyword-group').slideDown();
+           $('#search-course').html(str);
+         }
+       })
     }
   })
   $('.search-dp').click(function(event) {
