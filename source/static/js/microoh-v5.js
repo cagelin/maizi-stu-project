@@ -67,21 +67,20 @@ $(function(){
     // ajax 搜索
     keyup:function() {
       $('#hotkeyword').slideUp();
-      
       var word = $('#search').val();
-       $.get('/search',{'word':word},function (data) {
-         var str ='';
-         $.each(data,function (k, v) {
-               // alert(v.fields.name)
-               str +='<a href="" >'+ v.fields.name +'</a>';  
-            });
-         if(str!=''){
-           $('#keyword-group').slideDown();
-           $('#search-course').html(str);
-         }
-       })
+      if(word!=''){$.ajax({url:"/keyword_search",
+              type:"get",
+              data: {"word":word},
+              dataType: "html",
+              success: function (data) {
+                
+              $('#keyword-group').slideDown();
+              }
+      })}
     }
-  })
+    // ajax结束
+
+  });
   $('.search-dp').click(function(event) {
     event.stopPropagation();
   });

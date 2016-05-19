@@ -8,13 +8,11 @@
       <div class="v5-read cf">
         <div class="v5-read-item">
           <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>麦子百科</h1>
+            <h1>官方活动</h1>
             <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
+                {% for read in AV_reads %}
+                <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
+                {% endfor %}
             </ul>
           </div>
           <p><img src="{% static 'test/3.jpg' %}"></p>
@@ -22,25 +20,21 @@
         <div class="v5-read-item v5-read-item-mid">
           <p><img src="{% static 'test/4.jpg' %}"></p>
           <div class="v5-read-list" style="background-color:#FF6138;">
-            <h1>麦子百科</h1>
+            <h1>开发者资讯</h1>
             <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
+                {% for read in NEWS_reads %}
+                <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
+                {% endfor %}
             </ul>
           </div>
         </div>
         <div class="v5-read-item">
           <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>麦子百科</h1>
+            <h1>技术交流</h1>
             <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
+                {% for read in DC_reads %}
+                <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
+                {% endfor %}
             </ul>
           </div>
           <p><img src="{% static 'test/5.jpg' %}"></p>

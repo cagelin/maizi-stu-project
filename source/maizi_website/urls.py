@@ -20,8 +20,7 @@ from common.views import *
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('common.urls', namespace='common')),
-    url(r"^uploads/(?P<path>.*)$", "django.views.static.serve", {"document_root": settings.MEDIA_ROOT}),
-    url(r'^search/$', search, name='search'),
     url(r'^course/', include('course.urls', namespace='course')),
     url(r'^users/', include('users.urls', namespace='users')),
+    url(r"^uploads/(?P<path>.*)$", "django.views.static.serve", {"document_root": settings.MEDIA_ROOT}),
 ]

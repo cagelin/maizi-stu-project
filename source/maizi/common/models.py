@@ -8,11 +8,11 @@ Model管理，包含各个模块所需要的数据模型，由项目组长统一
 '''
 
 from datetime import datetime
-from django.db import models
+from django.db import models  # 引入父类
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, \
-    AbstractBaseUser, PermissionsMixin
+AbstractBaseUser, PermissionsMixin
 
 
 class Ad(models.Model):
@@ -25,14 +25,14 @@ class Ad(models.Model):
     description = models.CharField(u'广告描述', max_length=200)
     # 日期存放路径ad/年/月
     image_url = models.ImageField(u'图片路径', upload_to='ad/%Y/%m')
-    callback_url = models.URLField(u'回调url', null=True, blank=True)
+    callback_url = models.URLField(u'回调url', null=True, blank=True)  # null为数据库可以为空，blank允许不填写
     index = models.IntegerField(u'排列顺序(从小到大)', default=999)
 
     class Meta:
         verbose_name = u'网站广告'
         verbose_name_plural = verbose_name
         ordering = ['index', 'id']
-        db_table = 'ad'
+        db_table = 'ad'  # 表名称
 
     def __unicode__(self):
         return self.title
@@ -50,9 +50,9 @@ class MyMessage(models.Model):
         ('3', u'论坛讨论回复'),
     )
 
-    #发送方,为0表示系统用户
+    # 发送方,为0表示系统用户
     userA = models.IntegerField(u'用户A')
-    #接收方,为0就给所有用户发送消息
+    # 接收方,为0就给所有用户发送消息
     userB = models.IntegerField(u'用户B')
     action_type = models.CharField(u'类型', choices=action_types, max_length=1)
     action_id = models.IntegerField(u'动作id', blank=True, null=True)
@@ -75,7 +75,7 @@ class Links(models.Model):
     友情链接
     '''
 
-    title =  models.CharField(u'标题', max_length=50)
+    title = models.CharField(u'标题', max_length=50)
     description = models.CharField(u'友情链接描述', max_length=200)
     image_url = models.ImageField(u'图片路径', upload_to='links/%Y/%m',
                                   null=True, blank=True)
@@ -115,7 +115,6 @@ class RecommendKeywords(models.Model):
     '''
 
     name = models.CharField(u'推荐搜索关键词', max_length = 50)
-    callback_url = models.URLField(u'回调url', null=True, blank=True)
 
     class Meta:
         verbose_name = u'推荐搜索关键词'
@@ -124,6 +123,7 @@ class RecommendKeywords(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class EmailVerifyRecord(models.Model):
 
@@ -303,6 +303,7 @@ class LessonResource(models.Model):
     download_url = models.FileField(u'下载地址', upload_to='lesson/%Y/%m')
     download_count = models.IntegerField(u'下载次数', default=0)
     lesson = models.ForeignKey(Lesson, verbose_name=u'章节')
+
     class Meta:
         verbose_name = u'章节资源'
         verbose_name_plural = verbose_name
