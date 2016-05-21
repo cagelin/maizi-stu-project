@@ -7,7 +7,8 @@ Created on 2015/11/3
 Common模块View业务处理。
 """
 import logging
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
+from django.http import HttpRequest
 from common.models import *
 from django.core.serializers import serialize
 import json
@@ -37,23 +38,38 @@ def index(request):
 
 # ajax搜索
 def keyword_search(request):
+    data = dict()
     # 获取关键词
     keyword = request.GET.get('word', None)
     try:
         # 搜索
-        out =[]
-        career_course_list = CareerCourse.objects.filter(name__icontains=keyword).values('id','name')
-        course_list = Course.objects.filter(name__icontains=keyword).values('id','name')
-        for ccl in career_course_list:
-            out.append(ccl)
-        for cl in course_list:
-            out.append(cl)
-        print out
-        # 处理结果
+        if keyword:
+            course_lists = Course.objects.filter(name__icontains=keyword)
+
+            career_course_lists = CareerCourse.objects.filter(name__icontains=keyword)
+
+        else:
+            course_lists = Course.objects.all()
+            career_course_lists = CareerCourse.objects.all()
+        # 处理
+        data['course_lists'] = []
+        for cl in course_lists:
+            data['course_lists'].append({'name': cl.name, 'market_page_url': cl.market_page_url, 'color': cl.course_color})
+        data['career_course_lists'] = []
+        for ccl in career_course_lists:
+            data['career_course_lists'].append({'name': ccl.name, 'market_page_url': ccl.market_page_url, 'color': ccl.course_color})
+        print data
+        # if course_lists:
+        #     course_list = list(course_lists)
+        #     data = json.dumps(course_list)
+        #
+        #     return HttpResponse(data)
+        # else:
+        #     return None
     except Exception as e:
         pass
         # logger.error(e)
     # 发送结果
-    return HttpResponse(out)
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 

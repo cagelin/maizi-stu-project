@@ -68,18 +68,28 @@ $(function(){
     keyup:function() {
       $('#hotkeyword').slideUp();
       var word = $('#search').val();
-      if(word!=''){$.ajax({url:"/keyword_search",
+      var ccl_str='';
+      var cl_str='';
+      if(word!=''){
+        $.ajax({url:"/keyword_search",
               type:"get",
               data: {"word":word},
-              dataType: "html",
+              dataType: "json",
               success: function (data) {
-                
-              $('#keyword-group').slideDown();
+
+                $.each(data["career_course_lists"],function (k, v) {
+                  ccl_str+= '<a href="'+v["market_page_url"]+'" style="background-color:'+v["color"]+'">'+v["name"]+'</a>'
+              });
+                $('#search-CareerCourse').html(ccl_str);
+                $.each(data["course_lists"],function (k, v) {
+                  cl_str+= '<a href="'+v["market_page_url"]+'" style="background-color:'+v["color"]+'">'+v["name"]+'</a>'
+              });
+                $('#search-Course').html(cl_str);
+                $('#keyword-group').slideDown();
               }
       })}
     }
     // ajax结束
-
   });
   $('.search-dp').click(function(event) {
     event.stopPropagation();
