@@ -17,14 +17,22 @@ import json
 # logger = logging.getLogger('common.views')
 
 
+# 站点基本信息
+def global_setting(request):
+    MEDIA_URL = settings.MEDIA_URL
+
+    return locals()
+
+
 # 首页
 def index(request):
+    MEDIA_URL = settings.MEDIA_URL
     # 广告信息获取
     ad_list = Ad.objects.all()
     # 关键词推荐
     rcm_keyword = RecommendKeywords.objects.all()
     # 教师信息
-    # teacher =
+    teacher = UserProfile.objects.filter(groups__name='老师')
     # 友情链接
     links = Links.objects.all()
     # 开发者资讯
@@ -58,18 +66,18 @@ def keyword_search(request):
         data['career_course_lists'] = []
         for ccl in career_course_lists:
             data['career_course_lists'].append({'name': ccl.name, 'market_page_url': ccl.market_page_url, 'color': ccl.course_color})
-        print data
-        # if course_lists:
-        #     course_list = list(course_lists)
-        #     data = json.dumps(course_list)
-        #
-        #     return HttpResponse(data)
-        # else:
-        #     return None
     except Exception as e:
         pass
         # logger.error(e)
     # 发送结果
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+# 老师的详细页面
+
+def teacher_profile(request):
+    print request
+    return render(request, 'common/teacher_profile.html', locals())
+
 
 

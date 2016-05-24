@@ -2,6 +2,9 @@ $(function(){
   $(document).on('click', function() {   
     $('#hotkeyword').slideUp();
     $('#keyword-group').slideUp();
+    //清除搜索结果
+    $('#search-CareerCourse').html('');
+    $('#search-Course').html('');
     $('.show-card').removeClass('slideInDown').addClass('hidden');
   });
   
@@ -64,6 +67,7 @@ $(function(){
         $('#hotkeyword').slideDown();
       }
     },
+
     // ajax 搜索
     keyup:function() {
       $('#hotkeyword').slideUp();
@@ -75,16 +79,27 @@ $(function(){
               type:"get",
               data: {"word":word},
               dataType: "json",
+              error:function () {
+                $('#search-CareerCourse').html('搜索出错');
+                $('#search-Course').html('搜索出错');
+              },
               success: function (data) {
-
+                if ("career_course_lists"in data&&data["career_course_lists"].length>0){
                 $.each(data["career_course_lists"],function (k, v) {
                   ccl_str+= '<a href="'+v["market_page_url"]+'" style="background-color:'+v["color"]+'">'+v["name"]+'</a>'
               });
                 $('#search-CareerCourse').html(ccl_str);
+                }else {
+                   $('#search-CareerCourse').html('没有相关职业课程');
+                }
+                if("course_lists"in data&&data["course_lists"].length>0){
                 $.each(data["course_lists"],function (k, v) {
                   cl_str+= '<a href="'+v["market_page_url"]+'" style="background-color:'+v["color"]+'">'+v["name"]+'</a>'
               });
                 $('#search-Course').html(cl_str);
+                }else {
+                   $('#search-Course').html('没有相关课程');
+                }
                 $('#keyword-group').slideDown();
               }
       })}
@@ -97,8 +112,11 @@ $(function(){
   $('#hotkeyword a').click(function(event) {
     event.preventDefault();
     $('#search').val($(this).text());
+    // 触发keyup事件
+     $('#search').trigger("keyup");
     $('#hotkeyword').slideUp();
     $('#keyword-group').slideDown();
+
   });
 
 

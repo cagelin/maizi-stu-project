@@ -13,6 +13,7 @@ from django.utils.text import capfirst
 from django.utils.datastructures import OrderedDict
 from common.models import *
 
+
 # 让admin添加model时按照注册的先后顺序添加
 def find_model_index(name):
     count = 0
@@ -22,6 +23,7 @@ def find_model_index(name):
         else:
             count += 1
     return count
+
 
 def index_decorator(func):
     def inner(*args, **kwargs):
@@ -37,15 +39,18 @@ admin.site._registry = registry
 admin.site.index = index_decorator(admin.site.index)
 admin.site.app_index = index_decorator(admin.site.app_index)
 
+
 # 用户管理类
 class UserProfileAdmin(UserAdmin):
+    # 设置页面
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
+        (None, {'fields': ('username', 'password','avatar_middle_thumbnall')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login',)}),
     )
+    # 添加页面
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -53,22 +58,30 @@ class UserProfileAdmin(UserAdmin):
         }),
     )
     list_display = ('email', 'username', 'first_name', 'last_name', 'is_staff')
+    # 过滤器
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    # 搜索框
     search_fields = ('email', 'username', 'first_name', 'last_name')
+    # 排序
     ordering = ('username',)
+    # 华丽的多选框
     filter_horizontal = ('groups', 'user_permissions',)
+
 
 # 章节资源管理类
 class LessonResourceInline(admin.TabularInline):
     model = LessonResource
 
+
 # 章节管理类
 class LessonAdmin(admin.ModelAdmin):
     inlines = [LessonResourceInline, ]
 
+
 # 课程资源管理类
 class CourseResourceInline(admin.TabularInline):
     model = CourseResource
+
 
 # 课程管理类
 class CourseAdmin(admin.ModelAdmin):

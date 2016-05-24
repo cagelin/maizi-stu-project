@@ -9,42 +9,19 @@
         <a id="prev" class="prev" href="#"></a>
         <div class="tc-list-w">
           <ul id="foo" class="cf">
+              {% for t in teacher %}
             <li>
               <dl>
-                <dt><a href="" style="border-left-color:#00A388;"><img src="{% static 'test/2.png' %}"></a></dt>
+                <dt><a href="teacher/{{ t.id }}" style="border-left-color:#00A388;"><img src="{{ MEDIA_URL }}{{ t.avatar_middle_thumbnall }} "></a></dt>
                 <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
+{#                调用实例方法#}
+                  <h2>{{ t.get_full_name }}</h2>
+                  <h3>{{ t.username }}</h3>
                 </dd>
               </dl>
             </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#FF6038;"><img src="{% static 'test/17.jpg' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#00A388;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#78BD8B;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
+              {% endfor %}
+
           </ul>
         </div>
         <a id="next" class="next" href="#"></a>
