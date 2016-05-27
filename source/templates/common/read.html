@@ -10,7 +10,7 @@
           <div class="v5-read-list" style="background-color:#00A388;">
             <h1>官方活动</h1>
             <ul>
-                {% for read in AV_reads %}
+                {% for read in av_reads %}
                 <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
                 {% endfor %}
             </ul>
@@ -22,7 +22,7 @@
           <div class="v5-read-list" style="background-color:#FF6138;">
             <h1>开发者资讯</h1>
             <ul>
-                {% for read in NEWS_reads %}
+                {% for read in news_reads %}
                 <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
                 {% endfor %}
             </ul>
@@ -32,7 +32,7 @@
           <div class="v5-read-list" style="background-color:#00A388;">
             <h1>技术交流</h1>
             <ul>
-                {% for read in DC_reads %}
+                {% for read in dc_reads %}
                 <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
                 {% endfor %}
             </ul>

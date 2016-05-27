@@ -1,10 +1,10 @@
 {% extends "common/base.html" %}
 {% load staticfiles %}
-{% block title %}麦子学院{% endblock %}
-{% block keywords%}IT在线教育,IT职业教育,IT培训,IT职业课程,IT职业学习,麦子学院{% endblock %}
-{% block description%}麦子学院专注于IT在线职业教育,这里有超过5000+的实名学员,有硅谷IT名师参与录制的Android、ios、cocos2d-x开发等IT职业课程,导师在线辅导和保薪就业,更有站内IT精英实名社区,学IT就上麦子学院。{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
 {% block header %}
-{% include 'common/header.html' %}
+<header class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="64">
 {% endblock %}
 {% block container %}
 {% include 'common/ad.html' %}

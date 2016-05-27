@@ -11,7 +11,8 @@ from django.conf.urls import patterns, url
 from views import *
 urlpatterns = patterns('common.views',
                        url(r'^$', 'index', name='index'),
-                       url(r'^keyword_search/$', keyword_search, name='search'),
-                       url(r'^teacher/\d+$', teacher_profile, name='teacher')
+                       url(r'^keyword_search/$', keyword_search, name='keyword_search'),
+                       url(r'^course_search/$', course_search, name='course_search'),
+                       url(r'^teacher/(?P<teacher_id>\d+)$', teacher_profile, name='teacher'),
 
 )

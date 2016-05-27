@@ -12,11 +12,11 @@
               {% for t in teacher %}
             <li>
               <dl>
-                <dt><a href="teacher/{{ t.id }}" style="border-left-color:#00A388;"><img src="{{ MEDIA_URL }}{{ t.avatar_middle_thumbnall }} "></a></dt>
+                <dt><a href="{% url 'common:teacher' t.id %}" style="border-left-color:#00A388;"><img src="{{ MEDIA_URL }}{{ t.avatar_middle_thumbnall }} "></a></dt>
                 <dd>
 {#                调用实例方法#}
-                  <h2>{{ t.get_full_name }}</h2>
-                  <h3>{{ t.username }}</h3>
+                  <h2>{{ t.username }}</h2>
+                  <h3>{{ t.position }}</h3>
                 </dd>
               </dl>
             </li>

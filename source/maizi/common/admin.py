@@ -45,7 +45,7 @@ class UserProfileAdmin(UserAdmin):
     # 设置页面
     fieldsets = (
         (None, {'fields': ('username', 'password','avatar_middle_thumbnall')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'email', 'position', 'description')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login',)}),
