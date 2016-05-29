@@ -67,15 +67,12 @@ $(function(){
         $('#hotkeyword').slideDown();
       }
     },
-
     // ajax 搜索
     keyup:function() {
       $('#hotkeyword').slideUp();
       var word = $('#search').val();
       var ccl_str='';
-      // var ccl_str_t='';
       var cl_str='';
-      // var cl_str_t='';
       if(word!=''){
         $.ajax({url:"/keyword_search",
               type:"get",
@@ -84,27 +81,22 @@ $(function(){
               error:function () {
                 $('#search-CareerCourse').html('搜索出错');
                 $('#search-Course').html('搜索出错');
-                // $('#search-CareerCourse_t').html('搜索出错');
-                // $('#search-Course_t').html('搜索出错');
+
               },
               success: function (data) {
                 if ("career_course_lists"in data&&data["career_course_lists"].length>0){
                 $.each(data["career_course_lists"],function (k, v) {
                   ccl_str+= '<a href="'+v["market_page_url"]+'" style="background-color:'+v["color"]+'">'+v["name"]+'</a>';
-                  // ccl_str_t+='<div><span style="background-color:'+v["color"]+'"><img src="images/course/android.png"></span><a href="'+v["market_page_url"]+'">'+v["name"]+'</a></div>'
               });
                 $('#search-CareerCourse').html(ccl_str);
-                // $('#search-CareerCourse_t').html(ccl_str_t);
                 }else {
                    $('#search-CareerCourse').html('没有相关职业课程');
                 }
                 if("course_lists"in data&&data["course_lists"].length>0){
                 $.each(data["course_lists"],function (k, v) {
                   cl_str+= '<a href="'+v["market_page_url"]+'" style="background-color:'+v["color"]+'">'+v["name"]+'</a>'
-                  // cl_str_t+='<div><span style="background-color:'+v["color"]+'"><img src="images/course/android.png"></span><a href="'+v["market_page_url"]+'">'+v["name"]+'</a></div>'
               });
                 $('#search-Course').html(cl_str);
-                  // $('#search-Course_t').html(cl_str_t);
                 }else {
                    $('#search-Course').html('没有相关课程');
                 }
@@ -217,6 +209,7 @@ function get_course(index, course_order_by) {
           page_list.html("");
         },
         success: function (data) {
+          
           //解析数据
           if("error"in data&&data["error"].length>0){
             course_lists.html(data["error"]);
@@ -233,18 +226,18 @@ function get_course(index, course_order_by) {
           });
           page_list.html('');
           if(data['current_page']>1){
-            page_list.append('<li><a href="javascripts:void(0)" class="v5-icon v5-icon-prev" onclick="get_course(' + (data["current_page"] - 1) +
+            page_list.append('<li><a href="javascript:void(0)" class="v5-icon v5-icon-prev" onclick="get_course(' + (data["current_page"] - 1) +
                                     ',\'' + course_order_by + '\');"></a></li>');
           }
           for(var i=0; i< data['total_pages'];i++) {
             if (data['current_page'] == i + 1) {
-              page_list.append('<li><a href="javascripts:void(0)" class="page-num active" onclick="get_course(' + (i + 1) + ',\'' + course_order_by + '\');">' + (i + 1) + '</a></li>')
+              page_list.append('<li><a href="javascript:void(0)" class="page-num active" onclick="get_course(' + (i + 1) + ',\'' + course_order_by + '\');">' + (i + 1) + '</a></li>')
             } else {
-              page_list.append('<li><a href="javascripts:void(0)" class="page-num" onclick="get_course(' + (i + 1) + ',\'' + course_order_by + '\')">' + (i + 1) + '</a></li>')
+              page_list.append('<li><a href="javascript:void(0)" class="page-num" onclick="get_course(' + (i + 1) + ',\'' + course_order_by + '\')">' + (i + 1) + '</a></li>')
             }
           }
           if(data['current_page']!=data['total_pages']){
-            page_list.append('<li><a href="javascripts:void(0)" class="v5-icon v5-icon-next" onclick="get_course(' + (data["current_page"] + 1) +
+            page_list.append('<li><a href="javascript:void(0)" class="v5-icon v5-icon-next" onclick="get_course(' + (data["current_page"] + 1) +
                                     ',\'' + course_order_by + '\');"></a></li>');
           }
         }
@@ -254,3 +247,5 @@ function get_course(index, course_order_by) {
 get_course(1,'new');
 get_course(1,'most');
 get_course(1,'hot');
+
+

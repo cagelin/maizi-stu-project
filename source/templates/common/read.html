@@ -1,43 +1,43 @@
 {% load static %}
 <div class="v5-titline">
-      <div class="container">
-        <h1>推荐阅读</h1>
+  <div class="container">
+    <h1>推荐阅读</h1>
+  </div>
+</div>
+<div class="container">
+  <div class="v5-read cf">
+    <div class="v5-read-item">
+      <div class="v5-read-list" style="background-color:#00A388;">
+        <h1>官方活动</h1>
+        <ul>
+            {% for read in av_reads %}
+            <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
+            {% endfor %}
+        </ul>
+      </div>
+      <p><img src="{% static 'test/3.jpg' %}"></p>
+    </div>
+    <div class="v5-read-item v5-read-item-mid">
+      <p><img src="{% static 'test/4.jpg' %}"></p>
+      <div class="v5-read-list" style="background-color:#FF6138;">
+        <h1>开发者资讯</h1>
+        <ul>
+            {% for read in news_reads %}
+            <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
+            {% endfor %}
+        </ul>
       </div>
     </div>
-    <div class="container">
-      <div class="v5-read cf">
-        <div class="v5-read-item">
-          <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>官方活动</h1>
-            <ul>
-                {% for read in av_reads %}
-                <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
-                {% endfor %}
-            </ul>
-          </div>
-          <p><img src="{% static 'test/3.jpg' %}"></p>
-        </div>
-        <div class="v5-read-item v5-read-item-mid">
-          <p><img src="{% static 'test/4.jpg' %}"></p>
-          <div class="v5-read-list" style="background-color:#FF6138;">
-            <h1>开发者资讯</h1>
-            <ul>
-                {% for read in news_reads %}
-                <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
-                {% endfor %}
-            </ul>
-          </div>
-        </div>
-        <div class="v5-read-item">
-          <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>技术交流</h1>
-            <ul>
-                {% for read in dc_reads %}
-                <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
-                {% endfor %}
-            </ul>
-          </div>
-          <p><img src="{% static 'test/5.jpg' %}"></p>
-        </div>
+    <div class="v5-read-item">
+      <div class="v5-read-list" style="background-color:#00A388;">
+        <h1>技术交流</h1>
+        <ul>
+            {% for read in dc_reads %}
+            <li><a href="{{ read.url }}" title="{{ read.title }}">{{ read.title }}</a></li>
+            {% endfor %}
+        </ul>
       </div>
+      <p><img src="{% static 'test/5.jpg' %}"></p>
     </div>
+  </div>
+</div>

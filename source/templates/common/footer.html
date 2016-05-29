@@ -12,11 +12,6 @@
                     <a href="{{ link.callback_url }}">{{ link.title }}</a><span>|</span>
                     {% endfor %}
                 </li>
-{#                <li class="cf">#}
-{#                    {% for link in links %}#}
-{#                    <a href="{{ link.callback_url }}">{{ link.title }}</a><span>|</span>#}
-{#                    {% endfor %}#}
-{#                </li>#}
               </ul>
             </dd>
           </dl>
@@ -25,7 +20,7 @@
             <dd>
               <ul>
                 <li><a href="http://weibo.com/microoh"><span class="sina"></span>新浪微博</a></li>
-                <li><a href=""><span class="weixin"></span>官方微信</a></li>
+                <li id="wechat"><a href="javascript:void(0)"><span class="weixin"></span>官方微信</a></li>
                 <li><a href="http://weibo.com/microoh"><span class="qq"></span>腾讯微博</a></li>
               </ul>
             </dd>
@@ -34,17 +29,19 @@
             <dt>网站导航</dt>
             <dd>
               <ul>
-{#                <li><a href="">网站首页</a></li>#}
+                <li><a href="/">网站首页</a></li>
                 <li><a href="common/about">关于我们</a></li>
                 <li><a href="common/contact">联系我们</a></li>
                 <li><a href="feedback/publish">意见反馈</a></li>
               </ul>
             </dd>
           </dl>
+        <div id="wechatimg"> <img style="position: absolute;top: 60px; right: 50px;" src="{% static 'images/weichat_code.png' %}"></div>
         </div>
+
         <div class="v5-footer-bottom">
           <p>© 2012-2014 maiziedu.com | 服务条款 | 蜀ICP备13014270号-4 Version 4.0.1 release20140721.1</p>
         </div>
       </div>
     </div>
-  </div>
+</div>

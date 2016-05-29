@@ -3,27 +3,25 @@
       <div class="container">
         <h1>名师风采</h1>
       </div>
-    </div>
-    <div class="container">
-      <div class="tc-list">
-        <a id="prev" class="prev" href="#"></a>
-        <div class="tc-list-w">
-          <ul id="foo" class="cf">
-              {% for t in teacher %}
+</div>
+<div class="container">
+  <div class="tc-list">
+    <a id="prev" class="prev" href="#"></a>
+    <div class="tc-list-w">
+      <ul id="foo" class="cf">
+          {% for t in teacher %}
             <li>
               <dl>
                 <dt><a href="{% url 'common:teacher' t.id %}" style="border-left-color:#00A388;"><img src="{{ MEDIA_URL }}{{ t.avatar_middle_thumbnall }} "></a></dt>
                 <dd>
-{#                调用实例方法#}
                   <h2>{{ t.username }}</h2>
                   <h3>{{ t.position }}</h3>
                 </dd>
               </dl>
             </li>
-              {% endfor %}
-
-          </ul>
-        </div>
-        <a id="next" class="next" href="#"></a>
-      </div>
+          {% endfor %}
+      </ul>
     </div>
+    <a id="next" class="next" href="#"></a>
+  </div>
+</div>

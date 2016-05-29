@@ -20,12 +20,11 @@
 <![endif]-->
 </head>
 <body>
-
 <div class="microoh-main">
   {% block header %}
     <header class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="64">
   {% endblock %}
-         <div class="container">
+    <div class="container">
       <div class="navbar-header">
       	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#microoh-navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -33,7 +32,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="" title="麦子学院"><img src="{% static 'images/logo.png' %}"><img src="{% static 'images/logo-font.png' %}"></a>
+        <a class="navbar-brand" href="/" title="麦子学院"><img src="{% static 'images/logo.png' %}"><img src="{% static 'images/logo-font.png' %}"></a>
       </div>
       <div class="collapse navbar-collapse" id="microoh-navbar-collapse">
         <ul class="nav navbar-nav navbar-left">
@@ -59,18 +58,20 @@
           </div>
         </form>
         <div class="v5-topbar-login">
-          <div class="v5-topbar-login-off" style="display:block;">
-            <a href="#" data-toggle="modal" data-target="#loginModal">登录</a>
-          </div>
-          <div class="v5-topbar-login-on cf" style="display: none">
-            <dl>
-              <dt>
-                <a href="" class="dt-username"><span>1121212</span><i class="v5-icon v5-icon-rd"></i></a>
-              </dt>
-            </dl>
-            <!--<a href="" class="dt-usermsg"><i class="v5-icon v5-icon-nomsg"></i></a>-->
-            <a href="" class="dt-usermsg"><i class="v5-icon v5-icon-havemsg"></i><em>3</em></a>
-          </div>
+            {% if not request.user.is_authenticated %}
+              <div class="v5-topbar-login-off" style="display:block;">
+                <a href="#" data-toggle="modal" data-target="#loginModal">登录</a>
+              </div>
+            {% else %}
+              <div class="v5-topbar-login-on cf" style="display: block">
+                <dl>
+                  <dt>
+                    <a href="" class="dt-username"><span>{{ request.user.username }}</span><i class="v5-icon v5-icon-rd"></i></a>
+                  </dt>
+                </dl>
+                <a href="" class="dt-usermsg"><i class="v5-icon v5-icon-havemsg"></i><em>10</em></a>
+                </div>
+            {% endif %}
         </div>
       </div>
       <!--搜索结果-->
@@ -97,12 +98,11 @@
   {% block container %}{% endblock %}
   {% block footer%}
       <div class="v5-footer">
-            <div class="container">
-                <div class="v5-footer-container">
-                    <div class="v5-footer-bottom">
-                        <p>© 2012-2015 <a href="http://www.maiziedu.com">www.maiziedu.com</a> | 服务条款 | 蜀ICP备13014270号-4
-                            Version 4.0.6 release20150115.1</p>
-                    </div>
+        <div class="container">
+            <div class="v5-footer-container">
+                <div class="v5-footer-bottom">
+                    <p>© 2012-2015 <a href="http://www.maiziedu.com">www.maiziedu.com</a> | 服务条款 | 蜀ICP备13014270号-4
+                        Version 4.0.6 release20150115.1</p>
                 </div>
             </div>
         </div>
@@ -116,21 +116,26 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-dismiss="modal" onclick="cl()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="loginModalLabel">登录</h4>
       </div>
       <div class="modal-body">
+
         <section class="box-login v5-input-txt" id="box-login">
+             <form action="{% url 'users:login' %}" method="post" onsubmit="return check_info() ">
+              {% csrf_token %}
           <ul>
-            <li class="form-group has-error"><input type="text" class="form-control" placeholder="请输入邮箱账号/手机号"></li>
-            <li class="form-group"><input type="password" class="form-control" placeholder="请输入密码"></li>
+            <li class="form-group has-error"><input type="text" name="username" id="username" class="form-control" placeholder="请输入邮箱账号/手机号"></li>
+            <li class="form-group"><input type="password" name="password" id="password" class="form-control" placeholder="请输入密码"></li>
           </ul>
           <p class="good-tips"><a href="#" data-toggle="modal" data-target="#forgetpswModal" id="btnForgetpsw" class="fr">忘记密码？</a>还没有账号？<a href="" data-toggle="modal" data-target="#registerModal" id="btnRegister">立即注册</a></p>
           <div>
-            <button type="button" class="btn btn-micv5 btn-block">登录</button>
+                <button type="submit" class="btn btn-micv5 btn-block">登录</button>
           </div>
-          <div class="tips-error bg-danger">错误提示</div>
+          <div class="tips-error bg-danger" id="tips-error-login" style= "display: none"></div>
+             </form>
         </section>
+
       </div>
     </div>
   </div>
@@ -168,21 +173,24 @@
       </div>
       <div class="modal-body">
         <section class="box-register v5-input-txt" id="box-register">
+
           <ul class="register-tabs" role="tablist">
             <li class="active"><a href="#register-email" role="tab" data-toggle="tab">邮箱注册</a></li>
             <li><a href="#register-mobile" role="tab" data-toggle="tab">手机注册</a></li>
           </ul>
           <div class="tab-content">
+              <form action="" method="post">
             <div class="tab-pane active" id="register-email">
             	<div class="form-group"><input type="text" class="form-control" placeholder="请输入邮箱账号"></div>
               <div class="form-group"><input type="password" class="form-control" placeholder="请输入密码"></div>
-              <div class="form-group cf"><input type="text" class="form-control form-control-captcha fl" placeholder="请输入验证码"><span class="v5-yzm fr"><a href=""><img src="test/yzm.jpg">换一张</a></span></div>            	
+              <div class="form-group cf"><input type="text" class="form-control form-control-captcha fl" placeholder="请输入验证码"><span class="v5-yzm fr"><a href=""><img src="">换一张</a></span></div>
             </div>
+              </form>
             <div class="tab-pane" id="register-mobile">
             	<div class="form-group cf"><input type="text" class="form-control form-control-phone fl" placeholder="请输入手机号"><span class="fr"><button type="button" class="btn btn-micv5 btn-send">发送验证码</button></span></div>
               <div class="form-group"><input type="text" class="form-control" placeholder="请输入短信验证码"></div>
               <div class="form-group"><input type="password" class="form-control" placeholder="请输入密码"></div>
-              <div class="form-group cf"><input type="text" class="form-control form-control-captcha fl" placeholder="请输入验证码"><span class="v5-yzm fr"><a href=""><img src="test/yzm.jpg">换一张</a></span></div>
+              <div class="form-group cf"><input type="text" class="form-control form-control-captcha fl" placeholder="请输入验证码"><span class="v5-yzm fr"><a href=""><img src="">换一张</a></span></div>
             </div>
           </div>
           <p class="good-tips">已经有账号？<a href="#" data-toggle="modal" data-target="#loginModal" id="btnLogin">立即登录</a></p>
@@ -200,17 +208,17 @@
 <div class="show-card animated hidden">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td class="td-userhd"><span class="user-pic"><img src="test/15.jpg"></span></td>
+      <td class="td-userhd"><span class="user-pic"><img src="{{ MEDIA_URL }}{{ request.user.avatar_middle_thumbnall }}"></span></td>
       <td align="right" class="text-align-r">
-        <a href="" class="link-default">184545848</a>
-        <div class="user-email">184545848@mail.com</div>
+        <a href="" class="link-default">{{ request.user.username }}</a>
+        <div class="user-email">{{ request.user.email }}</div>
       </td>
     </tr>
     <tr>
       <td colspan="2"><a href="" class="btn btn-micv5 btn-md btn-block">进入个人中心</a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="" class="link-cancel">注销</a></td>
+      <td colspan="2"><a href="{% url 'users:logout' %}" class="link-cancel">注销</a></td>
     </tr>
   </table>
 </div>
@@ -285,6 +293,44 @@ $(function() {
       autoReinitialise: true
     });
 });
+//登入验证
+
+function cl(){
+	document.getElementById("username").value="";
+	document.getElementById("password").value="";
+	document.getElementById("tips-error-login").style.display = "none"
+}
+
+function check_info() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+	if (username == ""){
+		    document.getElementById("tips-error-login").style.display = "block";
+            document.getElementById("tips-error-login").innerText="账号不能为空";
+            return false;
+	}
+    if (!/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(username)) {
+        if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(username)) {
+            document.getElementById("tips-error-login").style.display = "block";
+            document.getElementById("tips-error-login").innerText="账号格式不正确";
+            return false;
+            }
+    }
+    if (password == ""){
+        document.getElementById("tips-error-login").style.display = "block";
+        document.getElementById("tips-error-login").innerText="请输入密码";
+        return false;
+    }
+    if (!/^(\w){4,20}$/.test(password)) {
+        document.getElementById("tips-error-login").style.display = "block";
+        document.getElementById("tips-error-login").innerText="密码至少为4位";
+        return false;
+    }
+}
+
+
+
 </script>
 {% block custom_script %}{% endblock %}
 {% block popup %}{% endblock %}

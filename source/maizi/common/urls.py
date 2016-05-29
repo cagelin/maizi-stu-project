@@ -14,5 +14,4 @@ urlpatterns = patterns('common.views',
                        url(r'^keyword_search/$', keyword_search, name='keyword_search'),
                        url(r'^course_search/$', course_search, name='course_search'),
                        url(r'^teacher/(?P<teacher_id>\d+)$', teacher_profile, name='teacher'),
-
 )

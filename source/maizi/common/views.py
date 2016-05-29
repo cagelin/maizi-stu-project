@@ -6,21 +6,23 @@ Created on 2015/11/3
 @author: yopoing
 Common模块View业务处理。
 """
-import logging
-from django.shortcuts import render, HttpResponse
-from common.models import *
-from django.db.models import Sum
 import json
 import math
+from django.db.models import Sum
+from django.shortcuts import render, HttpResponse
+from common.models import *
+import logging
+
 # 日志记录
-# logger = logging.getLogger('common.views')
+logger = logging.getLogger('common.views')
 
 
 # 站点基本信息
 def global_setting(request):
     title = '麦子学院'
     keyword = 'IT在线教育,IT职业教育,IT培训,IT职业课程,IT职业学习,麦子学院'
-    description = '麦子学院专注于IT在线职业教育,这里有超过5000+的实名学员,有硅谷IT名师参与录制的Android、ios、cocos2d-x开发等IT职业课程,导师在线辅导和保薪就业,更有站内IT精英实名社区,学IT就上麦子学院。'
+    description = '麦子学院专注于IT在线职业教育,这里有超过5000+的实名学员,有硅谷IT名师参与录制的' \
+                  'Android、ios、cocos2d-x开发等IT职业课程,导师在线辅导和保薪就业,更有站内IT精英实名社区,学IT就上麦子学院。'
     # 图片路径
     MEDIA_URL = settings.MEDIA_URL
     # 关键词推荐
@@ -54,9 +56,7 @@ def keyword_search(request):
         # 搜索
         if keyword:
             course_lists = Course.objects.filter(name__icontains=keyword)
-
             career_course_lists = CareerCourse.objects.filter(name__icontains=keyword)
-
         else:
             course_lists = Course.objects.all()
             career_course_lists = CareerCourse.objects.all()
@@ -69,8 +69,7 @@ def keyword_search(request):
             data['career_course_lists'].append({'name': ccl.name, 'market_page_url': ccl.market_page_url, 'color': ccl.course_color})
 
     except Exception as e:
-        pass
-        # logger.error(e)
+        logger.error(e)
     # 发送结果
     return HttpResponse(json.dumps(data), content_type="application/json")
 
@@ -93,8 +92,17 @@ def course_search(request):
                     data['result'].append((r.market_page_url,  str(r.image), r.name, r.student_count))
                 data['total_pages'] = int(total_pages)
                 data['current_page'] = page
+
             elif course_order_by == 'most':
-                total_count = Lesson.objects.all().values("course").annotate(total_play_count=Sum('play_count')).count()
+                total_count = Lesson.objects.values("course").annotate(total_play_count=Sum('play_count')).count()
+                total_pages = math.ceil(float(total_count) / 8)
+                start, end = get_start_end(page)
+                result = Lesson.objects.values('course__market_page_url', 'course__image','course__name', 'course__student_count').annotate(total_play_count=Sum('play_count')).order_by('-total_play_count')[start:end]
+
+                for r in result:
+                    data['result'].append((r['course__market_page_url'],  r['course__image'], r['course__name'], r['course__student_count']))
+                data['total_pages'] = int(total_pages)
+                data['current_page'] = page
 
             elif course_order_by == 'hot':
                 total_count = Course.objects.filter(is_homeshow=True).count()
@@ -110,7 +118,7 @@ def course_search(request):
         else:
             data['error'] = '找不到传递的值'
     except Exception as e:
-        pass
+        logger.error(e)
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
@@ -127,7 +135,7 @@ def teacher_profile(request, teacher_id):
             teacher = UserProfile.objects.get(id=teacher_id)
             course = Course.objects.filter(teacher_id=teacher_id)
     except Exception as e:
-        pass
+        logger.error(e)
     return render(request, 'common/teacher_profile.html', locals())
 
 
